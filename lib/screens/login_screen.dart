@@ -17,6 +17,7 @@ class _LoginScreenState extends State<LoginScreen> {
       body: Padding(
         padding: const EdgeInsets.all(40.0),
         child: Form(
+          key: _formKey,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -30,6 +31,22 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
                 ),
+              ),
+              TextFormField(
+                validator: (value) {
+                  if (value.isEmpty) {
+                    return 'Please enter some text';
+                  }
+                  return null;
+                },
+              ),
+              TextFormField(
+                validator: (value) {
+                  if (value.isEmpty) {
+                    return 'Please enter some text';
+                  }
+                  return null;
+                },
               ),
               SizedBox(
                 height: 40,
@@ -46,13 +63,19 @@ class _LoginScreenState extends State<LoginScreen> {
                   side: BorderSide(color: Colors.lightBlue[800]),
                 ),
                 onPressed: () {
-                  Navigator.pushNamed(context, '/adminScreen');
+                  if (_formKey.currentState.validate()) {
+                    // If the form is valid, display a Snackbar.
+                    print('valid');
+                    Navigator.pushNamed(context, '/adminScreen');
+                  } else {
+                    print('invalid form');
+                  }
                 },
                 child: Text(
                   'Login',
                   style: TextStyle(fontSize: 20.0),
                 ),
-              )
+              ),
             ],
           ),
         ),
