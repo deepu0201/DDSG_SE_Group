@@ -59,7 +59,7 @@ class HomePage extends StatelessWidget {
                 'Admin Login',
                 style: TextStyle(fontSize: 20.0),
               ),
-            )
+            ),
           ],
         ),
       ),
