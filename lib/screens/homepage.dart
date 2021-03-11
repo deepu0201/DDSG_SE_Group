@@ -23,17 +23,45 @@ class HomePage extends StatelessWidget {
                 ),
               ),
             ),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 20.0),
+              child: Center(
+                child: Text(
+                  'Event Processing System',
+                  style: TextStyle(
+                    fontSize: 20.0,
+                  ),
+                ),
+              ),
+            ),
             MyContainer(myString: 'Temprature : 25 degree'),
             MyContainer(myString: 'Humidity : 55 percent'),
             MyContainer(myString: 'Occupance : 20 occupants'),
             MyContainer(myString: 'Energy : 25 units'),
+            SizedBox(
+              height: 200.0,
+            ),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                padding: const EdgeInsets.symmetric(
+                  vertical: 20.0,
+                  horizontal: 80.0,
+                ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+                side: BorderSide(color: Colors.lightBlue[800]),
+              ),
+              onPressed: () {
+                Navigator.pushNamed(context, '/loginScreen');
+              },
+              child: Text(
+                'Admin Login',
+                style: TextStyle(fontSize: 20.0),
+              ),
+            )
           ],
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.pushNamed(context, '/loginScreen');
-        },
       ),
     );
   }
