@@ -32,24 +32,36 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
               ),
+              SizedBox(
+                height: 20.0,
+              ),
               TextFormField(
+                decoration: InputDecoration(
+                  labelText: 'Enter your username',
+                ),
+                keyboardType: TextInputType.name,
                 validator: (value) {
                   if (value.isEmpty) {
-                    return 'Please enter some text';
+                    return 'Please enter username';
                   }
                   return null;
                 },
               ),
               TextFormField(
+                decoration: InputDecoration(
+                  labelText: 'Enter your password',
+                ),
+                obscureText: true,
+                // keyboardType: TextInputType,
                 validator: (value) {
                   if (value.isEmpty) {
-                    return 'Please enter some text';
+                    return 'Please enter password';
                   }
                   return null;
                 },
               ),
               SizedBox(
-                height: 40,
+                height: 60,
               ),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
