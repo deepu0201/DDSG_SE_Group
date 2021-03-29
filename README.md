@@ -1,4 +1,4 @@
-# event_processing_system
+# Event_processing_system
 
 A new Flutter application.
 
