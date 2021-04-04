@@ -1,4 +1,12 @@
+// import 'dart:html';
+
 import 'package:flutter/material.dart';
+
+class Credential {
+  Credential({@required this.username, @required this.password});
+  String username;
+  String password;
+}
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -9,13 +17,34 @@ class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
   String username;
   String password;
-  //TODO implement credentials data or something
+
+  List<Credential> credentials = [
+    // list of models
+    Credential(username: "daniel", password: "danpass"),
+    Credential(username: "shahid", password: "shapass"),
+    Credential(username: "deeptarshi", password: "deepass"),
+    Credential(username: "gaurav", password: "gaupass"),
+  ];
 
   bool checkCredentials() {
-    if (username == "daniel" && password == "mypassword") {
-      return true;
-    } else {
-      return false;
+    bool flag = false;
+    for (Credential data in credentials) {
+      if (username == data.username && password == data.password) {
+        flag = true;
+      }
+    }
+    return flag;
+  }
+
+  void handleLoginButton() {
+    if (_formKey.currentState.validate()) {
+      if (checkCredentials()) {
+        Navigator.pushNamed(context, '/adminScreen');
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("Username and password did not match!")),
+        );
+      }
     }
   }
 
@@ -91,24 +120,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   side: BorderSide(color: Colors.lightBlue[800]),
                 ),
-                onPressed: () {
-                  if (_formKey.currentState.validate()) {
-                    // If the form is valid, display a Snackbar.
-                    print('valid');
-                    if (checkCredentials()) {
-                      Navigator.pushNamed(context, '/adminScreen');
-                    } else {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                            content:
-                                Text("Username and password did not match!")),
-                      );
-                      print("wrong credentials");
-                    }
-                  } else {
-                    print('invalid form');
-                  }
-                },
+                onPressed: handleLoginButton,
                 child: Text(
                   'Login',
                   style: TextStyle(fontSize: 20.0),
