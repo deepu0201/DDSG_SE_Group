@@ -7,6 +7,17 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
+  String username;
+  String password;
+  //TODO implement credentials data or something
+
+  bool checkCredentials() {
+    if (username == "daniel" && password == "mypassword") {
+      return true;
+    } else {
+      return false;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,6 +47,9 @@ class _LoginScreenState extends State<LoginScreen> {
                 height: 20.0,
               ),
               TextFormField(
+                onChanged: (value) {
+                  username = value;
+                },
                 decoration: InputDecoration(
                   labelText: 'Enter your username',
                 ),
@@ -48,6 +62,9 @@ class _LoginScreenState extends State<LoginScreen> {
                 },
               ),
               TextFormField(
+                onChanged: (value) {
+                  password = value;
+                },
                 decoration: InputDecoration(
                   labelText: 'Enter your password',
                 ),
@@ -78,7 +95,12 @@ class _LoginScreenState extends State<LoginScreen> {
                   if (_formKey.currentState.validate()) {
                     // If the form is valid, display a Snackbar.
                     print('valid');
-                    Navigator.pushNamed(context, '/adminScreen');
+                    if (checkCredentials()) {
+                      Navigator.pushNamed(context, '/adminScreen');
+                    } else {
+                      //TODO display snackbar
+                      print("wrong credentials");
+                    }
                   } else {
                     print('invalid form');
                   }
