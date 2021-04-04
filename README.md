@@ -1,6 +1,6 @@
-# event_processing_system
+# Event_processing_system
 
-A new Flutter application.
+A new Flutter application.It can be of inordinate use in home automation.
 
 ## Getting Started
 
