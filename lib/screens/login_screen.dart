@@ -98,7 +98,11 @@ class _LoginScreenState extends State<LoginScreen> {
                     if (checkCredentials()) {
                       Navigator.pushNamed(context, '/adminScreen');
                     } else {
-                      //TODO display snackbar
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                            content:
+                                Text("Username and password did not match!")),
+                      );
                       print("wrong credentials");
                     }
                   } else {
