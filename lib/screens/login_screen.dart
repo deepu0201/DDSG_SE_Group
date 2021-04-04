@@ -1,12 +1,5 @@
-// import 'dart:html';
-
 import 'package:flutter/material.dart';
-
-class Credential {
-  Credential({@required this.username, @required this.password});
-  String username;
-  String password;
-}
+import 'package:event_processing_system/models/credential.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -17,14 +10,6 @@ class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
   String username;
   String password;
-
-  List<Credential> credentials = [
-    // list of models
-    Credential(username: "daniel", password: "danpass"),
-    Credential(username: "shahid", password: "shapass"),
-    Credential(username: "deeptarshi", password: "deepass"),
-    Credential(username: "gaurav", password: "gaupass"),
-  ];
 
   bool checkCredentials() {
     bool flag = false;
