@@ -1,6 +1,38 @@
 import 'package:flutter/material.dart';
 
-class AdminScreen extends StatelessWidget {
+class AdminScreen extends StatefulWidget {
+  @override
+  _AdminScreenState createState() => _AdminScreenState();
+}
+
+class _AdminScreenState extends State<AdminScreen> {
+  int occupancy = 20;
+  double energyRate = 1.25;
+
+  void handleOccupancyAddition() {
+    setState(() {
+      occupancy += 1;
+    });
+  }
+
+  void handleOccupanceSubtraction() {
+    setState(() {
+      occupancy -= 1;
+    });
+  }
+
+  void handleEnergyRateAddition() {
+    setState(() {
+      energyRate += 0.25;
+    });
+  }
+
+  void handleEnergyRateSubtraction() {
+    setState(() {
+      energyRate -= 0.25;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,7 +75,7 @@ class AdminScreen extends StatelessWidget {
                     child: Row(
                       children: [
                         Text(
-                          'Occupancy : 21',
+                          'Occupancy : $occupancy',
                           style: TextStyle(
                             fontSize: 20.0,
                           ),
@@ -52,8 +84,14 @@ class AdminScreen extends StatelessWidget {
                         //   width: 100.0,
                         // ),
                         Expanded(child: Container()),
-                        IconButton(icon: Icon(Icons.remove), onPressed: () {}),
-                        IconButton(icon: Icon(Icons.add), onPressed: () {}),
+                        IconButton(
+                          icon: Icon(Icons.remove),
+                          onPressed: handleOccupanceSubtraction,
+                        ),
+                        IconButton(
+                          icon: Icon(Icons.add),
+                          onPressed: handleOccupancyAddition,
+                        ),
                       ],
                     ),
                   ),
@@ -80,7 +118,7 @@ class AdminScreen extends StatelessWidget {
                     child: Row(
                       children: [
                         Text(
-                          'Energy : 1.25',
+                          'Energy : $energyRate',
                           style: TextStyle(
                             fontSize: 20.0,
                           ),
@@ -94,8 +132,14 @@ class AdminScreen extends StatelessWidget {
                         //   child: TextField(
                         //   ),
                         // ),
-                        IconButton(icon: Icon(Icons.remove), onPressed: () {}),
-                        IconButton(icon: Icon(Icons.add), onPressed: () {}),
+                        IconButton(
+                          icon: Icon(Icons.remove),
+                          onPressed: handleEnergyRateSubtraction,
+                        ),
+                        IconButton(
+                          icon: Icon(Icons.add),
+                          onPressed: handleEnergyRateAddition,
+                        ),
                       ],
                     ),
                   ),
