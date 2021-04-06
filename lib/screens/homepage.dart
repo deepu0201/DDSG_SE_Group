@@ -8,15 +8,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  // int occupancy = 0;
-  // double energyRate = 0.0;
-  // var box = Hive.box('AppData');
-  //
-  // void assignAppData(var box) {
-  //   occupancy = box.get('occupancy', defaultValue: 0);
-  //   energyRate = box.get('energyRate', defaultValue: 0.0);
-  // }
-
   @override
   void initState() {
     // assignAppData(box);
@@ -26,8 +17,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    // print('assignAppData function should run');
-    // Provider.of<AppData>(context).assignAppData();
     return Scaffold(
       appBar: AppBar(
         title: Text('Home Page'),
