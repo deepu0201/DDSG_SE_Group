@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 
 class AdminScreen extends StatefulWidget {
   @override
@@ -6,8 +7,16 @@ class AdminScreen extends StatefulWidget {
 }
 
 class _AdminScreenState extends State<AdminScreen> {
-  int occupancy = 20;
-  double energyRate = 1.25;
+  int occupancy = 0;
+  double energyRate = 0.0;
+
+  @override
+  void initState() {
+    var box = Hive.box('AppData');
+    occupancy = box.get('occupancy', defaultValue: 0);
+    energyRate = box.get('energyRate', defaultValue: 0.0);
+    super.initState();
+  }
 
   void handleOccupancyAddition() {
     setState(() {
@@ -161,7 +170,10 @@ class _AdminScreenState extends State<AdminScreen> {
                 side: BorderSide(color: Colors.lightBlue[800]),
               ),
               onPressed: () {
-                Navigator.pushNamed(context, '/');
+                var box = Hive.box('AppData');
+                box.put('occupancy', occupancy);
+                box.put('energyRate', energyRate);
+                Navigator.popUntil(context, ModalRoute.withName('/'));
               },
               child: Text(
                 'Save',

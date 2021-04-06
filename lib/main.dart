@@ -3,7 +3,12 @@ import 'package:event_processing_system/screens/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:event_processing_system/screens/homepage.dart';
 
-void main() {
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+
+void main() async {
+  await Hive.initFlutter();
+  await Hive.openBox('AppData');
   runApp(MyApp());
 }
 

@@ -1,6 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  int occupancy = 0;
+  double energyRate = 0.0;
+  var box = Hive.box('AppData');
+
+  void assignAppData(var box) {
+    occupancy = box.get('occupancy', defaultValue: 0);
+    energyRate = box.get('energyRate', defaultValue: 0.0);
+  }
+
+  @override
+  void initState() {
+    assignAppData(box);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,10 +55,10 @@ class HomePage extends StatelessWidget {
                 ),
               ),
             ),
-            MyContainer(myString: 'Temprature : 25 degree'),
+            MyContainer(myString: 'Temperature : 25 degree'),
             MyContainer(myString: 'Humidity : 55 percent'),
-            MyContainer(myString: 'Occupance : 20 occupants'),
-            MyContainer(myString: 'Energy : 25 units'),
+            MyContainer(myString: 'Occupancy : $occupancy occupants'),
+            MyContainer(myString: 'Energy : ${energyRate * occupancy} units'),
             SizedBox(
               height: 200.0,
             ),
