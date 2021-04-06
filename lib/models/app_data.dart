@@ -22,7 +22,9 @@ class AppData extends ChangeNotifier {
   }
 
   void handleOccupancySubtraction() {
-    _occupancy -= 1;
+    if (_occupancy > 0) {
+      _occupancy -= 1;
+    }
     notifyListeners();
   }
 
@@ -32,7 +34,9 @@ class AppData extends ChangeNotifier {
   }
 
   void handleEnergyRateSubtraction() {
-    _energyRate -= 0.25;
+    if (_energyRate > 0.0) {
+      _energyRate -= 0.25;
+    }
     notifyListeners();
   }
 
