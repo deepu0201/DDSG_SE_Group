@@ -15,7 +15,7 @@ class _AdminScreenState extends State<AdminScreen> {
     });
   }
 
-  void handleOccupanceSubtraction() {
+  void handleOccupancySubtraction() {
     setState(() {
       occupancy -= 1;
     });
@@ -86,7 +86,7 @@ class _AdminScreenState extends State<AdminScreen> {
                         Expanded(child: Container()),
                         IconButton(
                           icon: Icon(Icons.remove),
-                          onPressed: handleOccupanceSubtraction,
+                          onPressed: handleOccupancySubtraction,
                         ),
                         IconButton(
                           icon: Icon(Icons.add),
