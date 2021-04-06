@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
+import 'package:provider/provider.dart';
+import 'package:event_processing_system/models/app_data.dart';
 
 class AdminScreen extends StatefulWidget {
   @override
@@ -7,40 +8,40 @@ class AdminScreen extends StatefulWidget {
 }
 
 class _AdminScreenState extends State<AdminScreen> {
-  int occupancy = 0;
-  double energyRate = 0.0;
-
-  @override
-  void initState() {
-    var box = Hive.box('AppData');
-    occupancy = box.get('occupancy', defaultValue: 0);
-    energyRate = box.get('energyRate', defaultValue: 0.0);
-    super.initState();
-  }
-
-  void handleOccupancyAddition() {
-    setState(() {
-      occupancy += 1;
-    });
-  }
-
-  void handleOccupancySubtraction() {
-    setState(() {
-      occupancy -= 1;
-    });
-  }
-
-  void handleEnergyRateAddition() {
-    setState(() {
-      energyRate += 0.25;
-    });
-  }
-
-  void handleEnergyRateSubtraction() {
-    setState(() {
-      energyRate -= 0.25;
-    });
-  }
+  // int occupancy = 0;
+  // double energyRate = 0.0;
+  //
+  // @override
+  // void initState() {
+  //   var box = Hive.box('AppData');
+  //   occupancy = box.get('occupancy', defaultValue: 0);
+  //   energyRate = box.get('energyRate', defaultValue: 0.0);
+  //   super.initState();
+  // }
+  //
+  // void handleOccupancyAddition() {
+  //   setState(() {
+  //     occupancy += 1;
+  //   });
+  // }
+  //
+  // void handleOccupancySubtraction() {
+  //   setState(() {
+  //     occupancy -= 1;
+  //   });
+  // }
+  //
+  // void handleEnergyRateAddition() {
+  //   setState(() {
+  //     energyRate += 0.25;
+  //   });
+  // }
+  //
+  // void handleEnergyRateSubtraction() {
+  //   setState(() {
+  //     energyRate -= 0.25;
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -84,7 +85,7 @@ class _AdminScreenState extends State<AdminScreen> {
                     child: Row(
                       children: [
                         Text(
-                          'Occupancy : $occupancy',
+                          'Occupancy : ${Provider.of<AppData>(context).occupancy}',
                           style: TextStyle(
                             fontSize: 20.0,
                           ),
@@ -95,11 +96,17 @@ class _AdminScreenState extends State<AdminScreen> {
                         Expanded(child: Container()),
                         IconButton(
                           icon: Icon(Icons.remove),
-                          onPressed: handleOccupancySubtraction,
+                          onPressed: () {
+                            Provider.of<AppData>(context, listen: false)
+                                .handleOccupancySubtraction();
+                          },
                         ),
                         IconButton(
                           icon: Icon(Icons.add),
-                          onPressed: handleOccupancyAddition,
+                          onPressed: () {
+                            Provider.of<AppData>(context, listen: false)
+                                .handleOccupancyAddition();
+                          },
                         ),
                       ],
                     ),
@@ -127,7 +134,7 @@ class _AdminScreenState extends State<AdminScreen> {
                     child: Row(
                       children: [
                         Text(
-                          'Energy : $energyRate',
+                          'Energy : ${Provider.of<AppData>(context).energyRate}',
                           style: TextStyle(
                             fontSize: 20.0,
                           ),
@@ -143,11 +150,17 @@ class _AdminScreenState extends State<AdminScreen> {
                         // ),
                         IconButton(
                           icon: Icon(Icons.remove),
-                          onPressed: handleEnergyRateSubtraction,
+                          onPressed: () {
+                            Provider.of<AppData>(context, listen: false)
+                                .handleEnergyRateSubtraction();
+                          },
                         ),
                         IconButton(
                           icon: Icon(Icons.add),
-                          onPressed: handleEnergyRateAddition,
+                          onPressed: () {
+                            Provider.of<AppData>(context, listen: false)
+                                .handleEnergyRateAddition();
+                          },
                         ),
                       ],
                     ),
@@ -170,9 +183,10 @@ class _AdminScreenState extends State<AdminScreen> {
                 side: BorderSide(color: Colors.lightBlue[800]),
               ),
               onPressed: () {
-                var box = Hive.box('AppData');
-                box.put('occupancy', occupancy);
-                box.put('energyRate', energyRate);
+                // var box = Hive.box('AppData');
+                // box.put('occupancy', occupancy);
+                // box.put('energyRate', energyRate);
+                Provider.of<AppData>(context, listen: false).handleSaveButton();
                 Navigator.popUntil(context, ModalRoute.withName('/'));
               },
               child: Text(

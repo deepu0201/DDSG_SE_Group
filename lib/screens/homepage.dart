@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
+import 'package:event_processing_system/models/app_data.dart';
+import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -7,23 +8,26 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int occupancy = 0;
-  double energyRate = 0.0;
-  var box = Hive.box('AppData');
-
-  void assignAppData(var box) {
-    occupancy = box.get('occupancy', defaultValue: 0);
-    energyRate = box.get('energyRate', defaultValue: 0.0);
-  }
+  // int occupancy = 0;
+  // double energyRate = 0.0;
+  // var box = Hive.box('AppData');
+  //
+  // void assignAppData(var box) {
+  //   occupancy = box.get('occupancy', defaultValue: 0);
+  //   energyRate = box.get('energyRate', defaultValue: 0.0);
+  // }
 
   @override
   void initState() {
-    assignAppData(box);
+    // assignAppData(box);
+    Provider.of<AppData>(context, listen: false).assignAppData();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    // print('assignAppData function should run');
+    // Provider.of<AppData>(context).assignAppData();
     return Scaffold(
       appBar: AppBar(
         title: Text('Home Page'),
@@ -57,8 +61,12 @@ class _HomePageState extends State<HomePage> {
             ),
             MyContainer(myString: 'Temperature : 25 degree'),
             MyContainer(myString: 'Humidity : 55 percent'),
-            MyContainer(myString: 'Occupancy : $occupancy occupants'),
-            MyContainer(myString: 'Energy : ${energyRate * occupancy} units'),
+            MyContainer(
+                myString:
+                    'Occupancy : ${Provider.of<AppData>(context).occupancy} occupants'),
+            MyContainer(
+                myString:
+                    'Energy : ${Provider.of<AppData>(context).energyConsumption} units'),
             SizedBox(
               height: 200.0,
             ),
