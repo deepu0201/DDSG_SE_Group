@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:event_processing_system/models/app_data.dart';
 import 'package:provider/provider.dart';
+import 'package:http/http.dart' as http;
 
 class HomePage extends StatefulWidget {
   @override
@@ -8,10 +9,15 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  // void callApi() async {
+  //   await http.get('api.openweathermap.org/data/2.5/weather?q={city name}&appid={API key}');
+  // }
+
   @override
   void initState() {
     // assignAppData(box);
     Provider.of<AppData>(context, listen: false).assignAppData();
+    // callApi();
     super.initState();
   }
 
