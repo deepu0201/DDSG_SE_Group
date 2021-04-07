@@ -3,6 +3,7 @@ import 'package:event_processing_system/models/app_data.dart';
 import 'package:provider/provider.dart';
 import 'dart:async' show Future;
 import 'package:flutter/services.dart' show rootBundle;
+import 'package:event_processing_system/services/weather.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -10,21 +11,30 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  double temperature;
+  int humidity;
+
   Future<String> loadAsset() async {
     return await rootBundle.loadString('assets/api_key.txt');
   }
 
-  // void callApi() async {
-  //   var apiData = await http.get(Uri.https('api.openweathermap.org',
-  //       '/data/2.5/weather?q=London&appid={API key}'));
-  //   print(apiData);
-  // }
+  Future<dynamic> fetchData() async {
+    var myKey = await loadAsset();
+
+    var weatherData = await WeatherModel().getCityWeather('London', myKey);
+    temperature = weatherData['main']['temp'];
+    humidity = weatherData['main']['humidity'];
+
+    print(temperature);
+    print(humidity);
+  }
 
   @override
   void initState() {
     // assignAppData(box);
     Provider.of<AppData>(context, listen: false).assignAppData();
     // callApi();
+    fetchData();
     super.initState();
   }
 
@@ -84,8 +94,6 @@ class _HomePageState extends State<HomePage> {
                 side: BorderSide(color: Colors.lightBlue[800]),
               ),
               onPressed: () async {
-                print(await loadAsset());
-
                 Navigator.pushNamed(context, '/loginScreen');
               },
               child: Text(
