@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:event_processing_system/models/app_data.dart';
 import 'package:provider/provider.dart';
-import 'package:http/http.dart' as http;
+import 'dart:async' show Future;
+import 'package:flutter/services.dart' show rootBundle;
 
 class HomePage extends StatefulWidget {
   @override
@@ -9,8 +10,14 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  Future<String> loadAsset() async {
+    return await rootBundle.loadString('assets/api_key.txt');
+  }
+
   // void callApi() async {
-  //   await http.get('api.openweathermap.org/data/2.5/weather?q={city name}&appid={API key}');
+  //   var apiData = await http.get(Uri.https('api.openweathermap.org',
+  //       '/data/2.5/weather?q=London&appid={API key}'));
+  //   print(apiData);
   // }
 
   @override
@@ -76,7 +83,9 @@ class _HomePageState extends State<HomePage> {
                 ),
                 side: BorderSide(color: Colors.lightBlue[800]),
               ),
-              onPressed: () {
+              onPressed: () async {
+                print(await loadAsset());
+
                 Navigator.pushNamed(context, '/loginScreen');
               },
               child: Text(
