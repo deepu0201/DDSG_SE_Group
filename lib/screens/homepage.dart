@@ -21,12 +21,16 @@ class _HomePageState extends State<HomePage> {
   Future<dynamic> fetchData() async {
     var myKey = await loadAsset();
 
-    var weatherData = await WeatherModel().getCityWeather('London', myKey);
+    var weatherData = await WeatherModel().getCityWeather('Allahabad', myKey);
     temperature = weatherData['main']['temp'];
     humidity = weatherData['main']['humidity'];
 
-    print(temperature);
-    print(humidity);
+    setState(() {
+      // To display fetched data in the widget tree
+    });
+
+    // print(temperature);
+    // print(humidity);
   }
 
   @override
@@ -71,8 +75,16 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             ),
-            MyContainer(myString: 'Temperature : 25 degree'),
-            MyContainer(myString: 'Humidity : 55 percent'),
+            MyContainer(
+              myString: (temperature != null)
+                  ? 'Temperature : ${temperature.toStringAsFixed(2)} degree'
+                  : 'Temperature : fetching...',
+            ),
+            MyContainer(
+              myString: (humidity != null)
+                  ? 'Humidity : $humidity percent'
+                  : 'Humidity : fetching...',
+            ),
             MyContainer(
                 myString:
                     'Occupancy : ${Provider.of<AppData>(context).occupancy} occupants'),
