@@ -125,8 +125,12 @@ class _AdminScreenState extends State<AdminScreen> {
                 ),
               ),
             ),
-            SizedBox(
-              height: 400.0,
+            // SizedBox(
+            //   height: 400.0,
+            // ),
+            Expanded(
+              flex: 2,
+              child: Container(),
             ),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
@@ -147,6 +151,10 @@ class _AdminScreenState extends State<AdminScreen> {
                 'Save',
                 style: TextStyle(fontSize: 20.0),
               ),
+            ),
+            Expanded(
+              flex: 1,
+              child: Container(),
             ),
           ],
         ),

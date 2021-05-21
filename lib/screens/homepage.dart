@@ -91,8 +91,12 @@ class _HomePageState extends State<HomePage> {
             MyContainer(
                 myString:
                     'Energy : ${Provider.of<AppData>(context).energyConsumption} units'),
-            SizedBox(
-              height: 200.0,
+            // SizedBox(
+            //   height: 200.0,
+            // ),
+            Expanded(
+              flex: 2,
+              child: Container(),
             ),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
@@ -112,6 +116,10 @@ class _HomePageState extends State<HomePage> {
                 'Admin Login',
                 style: TextStyle(fontSize: 20.0),
               ),
+            ),
+            Expanded(
+              flex: 1,
+              child: Container(),
             ),
           ],
         ),
